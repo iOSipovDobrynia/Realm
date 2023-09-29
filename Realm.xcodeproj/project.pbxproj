@@ -12,6 +12,8 @@
 		E33FC1E72AC49DE600287B68 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33FC1E62AC49DE600287B68 /* TaskListViewController.swift */; };
 		E33FC1EC2AC49DE800287B68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E33FC1EB2AC49DE800287B68 /* Assets.xcassets */; };
 		E385EEB12AC73D1400E0D0CE /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385EEB02AC73D1400E0D0CE /* CustomCell.swift */; };
+		E385EEB42AC7471400E0D0CE /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385EEB32AC7471400E0D0CE /* TaskList.swift */; };
+		E385EEB72AC74CA100E0D0CE /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385EEB62AC74CA100E0D0CE /* StorageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		E33FC1EB2AC49DE800287B68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E33FC1F02AC49DE800287B68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E385EEB02AC73D1400E0D0CE /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		E385EEB32AC7471400E0D0CE /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
+		E385EEB62AC74CA100E0D0CE /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,8 @@
 		E33FC1E12AC49DE600287B68 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
+				E385EEB52AC74C9500E0D0CE /* Services */,
+				E385EEB22AC7470500E0D0CE /* Models */,
 				E339773A2AC604F10055C3DB /* Views */,
 				E33FC1F62AC49E7600287B68 /* App */,
 				E33FC1F72AC49E8800287B68 /* ViewControllers */,
@@ -94,6 +100,22 @@
 				E33FC1EB2AC49DE800287B68 /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		E385EEB22AC7470500E0D0CE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E385EEB32AC7471400E0D0CE /* TaskList.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E385EEB52AC74C9500E0D0CE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E385EEB62AC74CA100E0D0CE /* StorageManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,7 +188,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E33FC1E72AC49DE600287B68 /* TaskListViewController.swift in Sources */,
+				E385EEB42AC7471400E0D0CE /* TaskList.swift in Sources */,
 				E33FC1E32AC49DE600287B68 /* AppDelegate.swift in Sources */,
+				E385EEB72AC74CA100E0D0CE /* StorageManager.swift in Sources */,
 				E385EEB12AC73D1400E0D0CE /* CustomCell.swift in Sources */,
 				E33FC1E52AC49DE600287B68 /* SceneDelegate.swift in Sources */,
 			);

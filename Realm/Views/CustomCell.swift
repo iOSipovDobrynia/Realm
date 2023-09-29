@@ -7,10 +7,11 @@
 
 import UIKit
 
-final class TaskCell: UITableViewCell {
+final class TaskListCell: UITableViewCell {
     
     // MARK: - Private properties
     private let taskNameLabel = UILabel()
+    private let detailLabel = UILabel()
     
     // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -22,50 +23,65 @@ final class TaskCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Actions
+    func configure(with taskList: TaskList) {
+        taskNameLabel.text = taskList.name
+        detailLabel.text = "taskList.tasks.count"
+    }
 }
 
 // MARK: - contentView setting
-private extension TaskCell {
-    func setupContentView() {
-        contentView.backgroundColor = .brown
-        
+private extension TaskListCell {
+    func setupContentView() {        
         addSubViews()
         
-        setupLabel()
+        setupNameLabel()
+        setupDetailLabel()
         
         setupLayout()
     }
 }
 
 // MARK: - Settings
-private extension TaskCell {
+private extension TaskListCell {
     func addSubViews() {
         [
-            taskNameLabel
+            taskNameLabel,
+            detailLabel
         ].forEach { subView in
             contentView.addSubview(subView)
         }
     }
     
-    func setupLabel() {
-        taskNameLabel.tintColor = .black
+    func setupNameLabel() {
+        taskNameLabel.textColor = .black
         taskNameLabel.text = "TTEXT"
+    }
+    
+    func setupDetailLabel() {
+        detailLabel.textColor = .gray
+        detailLabel.text = "Detail"
     }
 }
 
 // MARK: - Layout
-private extension TaskCell {
+private extension TaskListCell {
     func setupLayout() {
         
         [
-            taskNameLabel
+            taskNameLabel,
+            detailLabel
         ].forEach { subView in
             subView.translatesAutoresizingMaskIntoConstraints = false
         }
             
         NSLayoutConstraint.activate([
-            taskNameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            taskNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            taskNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            taskNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            
+            detailLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            detailLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
         ])
     }
 }
