@@ -32,7 +32,7 @@ private extension TaskListViewController {
         
         setupNavigationBar()
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        tableView.register(TaskCell.self, forCellReuseIdentifier: cellID)
         
         setupLayout()
     }
@@ -68,23 +68,9 @@ extension TaskListViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         
+        guard let cell = cell as? TaskCell else { return UITableViewCell() }
         let task = taskList[indexPath.row]
         
-        var content = cell.defaultContentConfiguration()
-        content.text = task
-        cell.accessoryType = .checkmark
-        
-        // first create UIImageView
-        var imageView : UIImageView
-        imageView  = UIImageView(frame:CGRect(x: 0, y: 0, width: 20, height: 20))
-        imageView.image = UIImage(systemName: "person")
-        imageView.contentMode = .scaleAspectFit
-
-        // then set it as cellAccessoryType
-        cell.accessoryView = imageView
-        
-        cell.contentConfiguration = content
-
         return cell
     }
 }
