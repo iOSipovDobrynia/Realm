@@ -34,8 +34,10 @@ final class StorageManager {
 
     }
     
-    func delete() {
-        
+    func delete(_ taskList: TaskList) {
+        write {
+            realm.delete(taskList)
+        }
     }
     
     // MARK: - Task

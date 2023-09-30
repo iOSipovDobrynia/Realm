@@ -112,15 +112,18 @@ extension TaskListViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let taskList = taskLists[indexPath.row]
         
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, _ in
+            self?.storageManager.delete(taskList)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
+        
         let editAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] _, _, isDone in
             self?.showAlert(taskList: taskList, completion: {
                 tableView.reloadRows(at: [indexPath], with: .automatic)
             })
             isDone(true)
         }
+        
         let doneAction = UIContextualAction(style: .normal, title: "Done") { _, _, isDone in
             tableView.reloadRows(at: [indexPath], with: .automatic)
             isDone(true)
