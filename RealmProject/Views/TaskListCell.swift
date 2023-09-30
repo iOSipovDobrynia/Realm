@@ -27,7 +27,7 @@ final class TaskListCell: UITableViewCell {
     // MARK: - Actions
     func configure(with taskList: TaskList) {
         taskListNameLabel.text = taskList.name
-        detailLabel.text = "taskList.tasks.count"
+        detailLabel.text = "\(taskList.tasks.count)"
     }
 }
 

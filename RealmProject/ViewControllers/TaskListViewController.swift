@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class TaskListViewController: UITableViewController {
 
     // MARK: - Private properties
     private let cellID = "taskList"
-    private let taskLists: [TaskList] = []
+    private var taskLists: Results<TaskList>!
     private let storageManager = StorageManager.shared
     
     // MARK: - View's life cycle
@@ -26,22 +27,34 @@ final class TaskListViewController: UITableViewController {
         showAlert()
     }
     
-    private func showTasks() {
+    private func showTasks(_ currentTaskList: TaskList) {
         let tasksVC = TasksViewController()
-        
-        present(tasksVC, animated: true)
+        tasksVC.taskList = currentTaskList
+        navigationController?.pushViewController(tasksVC, animated: true)
     }
 }
 
 // MARK: - View Setting
 private extension TaskListViewController {
     func setupView() {
+        createTempData()
+        
+        taskLists = StorageManager.shared.realm.objects(TaskList.self)
         
         setupNavigationBar()
         
         tableView.register(TaskListCell.self, forCellReuseIdentifier: cellID)
         
         setupLayout()
+    }
+    
+    func createTempData() {
+        if !UserDefaults.standard.bool(forKey: "done") {
+            DataManager.shared.createTempData { [weak self] in
+                UserDefaults.standard.setValue(true, forKey: "done")
+                self?.tableView.reloadData()
+            }
+        }
     }
 }
 
@@ -89,7 +102,8 @@ extension TaskListViewController {
 extension TaskListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        showTasks()
+        let selectedTaskList = taskLists[indexPath.row]
+        showTasks(selectedTaskList)
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
