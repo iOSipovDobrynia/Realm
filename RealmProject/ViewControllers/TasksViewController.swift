@@ -96,8 +96,13 @@ extension TasksViewController {
 
 // MARK: - UITableViewDelegate
 extension TasksViewController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let task = taskList.tasks[indexPath.row]
+        
+        let task = indexPath.section == 0 ? currentTasks[indexPath.row] : completedTasks[indexPath.row]
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, _ in
             self?.storageManager.delete(task)
@@ -111,17 +116,18 @@ extension TasksViewController {
             isDone(true)
         }
         
-//        let doneAction = UIContextualAction(style: .normal, title: "Done") { [weak self] _, _, isDone in
-//            self?.storageManager.done(taskList)
-//            tableView.reloadRows(at: [indexPath], with: .automatic)
-//            isDone(true)
-//        }
+        let titleSwitchStatusAction = indexPath.section == 0 ? "Done" : "Undone"
+        let switchStatusAction = UIContextualAction(style: .normal, title: titleSwitchStatusAction) { [weak self] _, _, isDone in
+            self?.storageManager.switchCompleteStatus(task)
+            tableView.reloadData()
+            isDone(true)
+        }
         
         editAction.backgroundColor = .orange
-//        doneAction.backgroundColor = .systemGreen
+        switchStatusAction.backgroundColor = indexPath.section == 0 ? .systemGreen : .systemBlue
         
         return UISwipeActionsConfiguration(actions: [
-//            doneAction,
+            switchStatusAction,
             editAction,
             deleteAction
         ])

@@ -73,6 +73,12 @@ final class StorageManager {
         }
     }
     
+    func switchCompleteStatus(_ task: Task) {
+        write {
+            task.isComplete.toggle()
+        }
+    }
+    
     // MARK: - Private methods
     private func write(completion: () -> Void) {
         do {
