@@ -22,12 +22,14 @@ final class TaskListViewController: UITableViewController {
     
     // MARK: - Actions
     @objc
-    private func addNewTask() {
+    private func addNewTaskList() {
         showAlert()
     }
     
     private func showTasks() {
+        let tasksVC = TasksViewController()
         
+        present(tasksVC, animated: true)
     }
 }
 
@@ -51,7 +53,7 @@ private extension TaskListViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
-            action: #selector(addNewTask)
+            action: #selector(addNewTaskList)
         )
         navigationItem.leftBarButtonItem = editButtonItem
     }

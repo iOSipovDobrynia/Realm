@@ -1,5 +1,5 @@
 //
-//  CustomCell.swift
+//  TaskListCell.swift
 //  Realm
 //
 //  Created by Goodwasp on 29.09.2023.
@@ -10,7 +10,7 @@ import UIKit
 final class TaskListCell: UITableViewCell {
     
     // MARK: - Private properties
-    private let taskNameLabel = UILabel()
+    private let taskListNameLabel = UILabel()
     private let detailLabel = UILabel()
     
     // MARK: - Initialization
@@ -26,7 +26,7 @@ final class TaskListCell: UITableViewCell {
     
     // MARK: - Actions
     func configure(with taskList: TaskList) {
-        taskNameLabel.text = taskList.name
+        taskListNameLabel.text = taskList.name
         detailLabel.text = "taskList.tasks.count"
     }
 }
@@ -47,7 +47,7 @@ private extension TaskListCell {
 private extension TaskListCell {
     func addSubViews() {
         [
-            taskNameLabel,
+            taskListNameLabel,
             detailLabel
         ].forEach { subView in
             contentView.addSubview(subView)
@@ -55,8 +55,8 @@ private extension TaskListCell {
     }
     
     func setupNameLabel() {
-        taskNameLabel.textColor = .black
-        taskNameLabel.text = "TTEXT"
+        taskListNameLabel.textColor = .black
+        taskListNameLabel.text = "TTEXT"
     }
     
     func setupDetailLabel() {
@@ -70,15 +70,15 @@ private extension TaskListCell {
     func setupLayout() {
         
         [
-            taskNameLabel,
+            taskListNameLabel,
             detailLabel
         ].forEach { subView in
             subView.translatesAutoresizingMaskIntoConstraints = false
         }
             
         NSLayoutConstraint.activate([
-            taskNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            taskNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            taskListNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            taskListNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             detailLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             detailLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
