@@ -27,7 +27,9 @@ final class TaskListCell: UITableViewCell {
     // MARK: - Actions
     func configure(with taskList: TaskList) {
         taskListNameLabel.text = taskList.name
-        detailLabel.text = "\(taskList.tasks.count)"
+        
+        let completedTasks = taskList.tasks.where { $0.isComplete }
+        detailLabel.text = "\(taskList.tasks.count - completedTasks.count)"
     }
 }
 
