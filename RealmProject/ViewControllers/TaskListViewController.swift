@@ -97,8 +97,6 @@ extension TaskListViewController {
         cell.configure(with: taskList)
         return cell
     }
-    
-    
 }
 
 // MARK: - UITableViewDelegate
@@ -124,7 +122,8 @@ extension TaskListViewController {
             isDone(true)
         }
         
-        let doneAction = UIContextualAction(style: .normal, title: "Done") { _, _, isDone in
+        let doneAction = UIContextualAction(style: .normal, title: "Done") { [weak self] _, _, isDone in
+            self?.storageManager.done(taskList)
             tableView.reloadRows(at: [indexPath], with: .automatic)
             isDone(true)
         }
@@ -150,7 +149,7 @@ extension TaskListViewController {
                 self?.create(taskListName)
                 return
             }
-//            self?.storageManager.update(taskList: taskList, with: taskListName)
+            self?.storageManager.update(taskList, taskListName)
             completion()
         }
         

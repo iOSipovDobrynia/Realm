@@ -48,8 +48,6 @@ private extension TasksViewController {
         addSubViews()
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
-        
-        setupLayout()
     }
 }
 
@@ -67,13 +65,6 @@ private extension TasksViewController {
             action: #selector(addNewTask)
         )
         navigationItem.rightBarButtonItems = [addButton, editButtonItem]
-    }
-}
-
-// MARK: - Layout
-private extension TasksViewController {
-    func setupLayout() {
-        
     }
 }
 
@@ -105,7 +96,36 @@ extension TasksViewController {
 
 // MARK: - UITableViewDelegate
 extension TasksViewController {
-    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let task = taskList.tasks[indexPath.row]
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, _ in
+            self?.storageManager.delete(task)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] _, _, isDone in
+            self?.showAlert(task: task, completion: {
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            })
+            isDone(true)
+        }
+        
+//        let doneAction = UIContextualAction(style: .normal, title: "Done") { [weak self] _, _, isDone in
+//            self?.storageManager.done(taskList)
+//            tableView.reloadRows(at: [indexPath], with: .automatic)
+//            isDone(true)
+//        }
+        
+        editAction.backgroundColor = .orange
+//        doneAction.backgroundColor = .systemGreen
+        
+        return UISwipeActionsConfiguration(actions: [
+//            doneAction,
+            editAction,
+            deleteAction
+        ])
+    }
 }
 
 // MARK: - UIAlertController
@@ -118,11 +138,12 @@ extension TasksViewController {
         let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] action in
             guard let taskName = alert.textFields?.first?.text, !taskName.isEmpty else { return }
             
+            
             guard let task = task, let completion = completion  else {
                 self?.create(taskName, alert.textFields?.last?.text ?? "")
                 return
             }
-//            self?.storageManager.update(task: task, with: taskName)
+            self?.storageManager.update(task, to: taskName, and: alert.textFields?.last?.text ?? "")
             completion()
         }
         

@@ -9,10 +9,12 @@ import Foundation
 import RealmSwift
 
 final class StorageManager {
+    
     static let shared = StorageManager()
     
     let realm = try! Realm()
     
+    // MARK: - Initialization
     private init() {}
     
     // MARK: - Task list
@@ -30,14 +32,22 @@ final class StorageManager {
         }
     }
     
-    func update() {
-
+    func update(_ taskList: TaskList, _ newName: String) {
+        write {
+            taskList.name = newName
+        }
     }
     
     func delete(_ taskList: TaskList) {
         write {
             realm.delete(taskList.tasks)
             realm.delete(taskList)
+        }
+    }
+    
+    func done(_ taskList: TaskList) {
+        write {
+            taskList.tasks.setValue(true, forKey: "isComplete")
         }
     }
     
@@ -50,6 +60,20 @@ final class StorageManager {
         }
     }
     
+    func update(_ task: Task, to newName: String, and newNote: String) {
+        write {
+            task.name = newName
+            task.note = newNote
+        }
+    }
+    
+    func delete(_ task: Task) {
+        write {
+            realm.delete(task)
+        }
+    }
+    
+    // MARK: - Private methods
     private func write(completion: () -> Void) {
         do {
             try realm.write {

@@ -11,6 +11,7 @@ final class DataManager {
     
     static let shared = DataManager()
     
+    // MARK: - Initialization
     private init() {}
     
     func createTempData(completion: @escaping () -> Void) {
