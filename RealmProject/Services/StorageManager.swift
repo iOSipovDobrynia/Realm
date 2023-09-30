@@ -22,16 +22,16 @@ final class StorageManager {
         }
     }
     
-    func create(_ taskList: String, completion: (TaskList) -> Void) {
+    func create(_ taskListName: String, completion: (TaskList) -> Void) {
         write {
-            let taskList = TaskList(value: ["name": taskList])
+            let taskList = TaskList(value: ["name": taskListName])
             realm.add(taskList)
             completion(taskList)
         }
     }
     
     func update() {
-        
+
     }
     
     func delete() {
@@ -39,6 +39,13 @@ final class StorageManager {
     }
     
     // MARK: - Task
+    func create(task withName: String, and note: String, to taskList: TaskList, completion: (Task) -> Void) {
+        write {
+            let task = Task(value: ["name": withName, "note": note])
+            taskList.tasks.append(task)
+            completion(task)
+        }
+    }
     
     private func write(completion: () -> Void) {
         do {

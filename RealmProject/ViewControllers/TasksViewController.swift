@@ -14,6 +14,7 @@ final class TasksViewController: UITableViewController {
     private let cellID = "task"
     private var currentTasks: Results<Task>!
     private var completedTasks: Results<Task>!
+    private let storageManager = StorageManager.shared
     
     // MARK: - Public properties
     var taskList: TaskList!
@@ -26,7 +27,14 @@ final class TasksViewController: UITableViewController {
     // MARK: - Actions
     @objc
     private func addNewTask() {
-        
+        showAlert()
+    }
+    
+    private func create(_ taskName: String, _ note: String) {
+        storageManager.create(task: taskName, and: note, to: taskList) { task in
+            let indexPath = IndexPath(row: currentTasks.index(of: task) ?? 0, section: 0)
+            tableView.insertRows(at: [indexPath], with: .automatic)
+        }
     }
 }
 
@@ -101,7 +109,7 @@ extension TasksViewController {
 }
 
 // MARK: - UIAlertController
-extension TaskListViewController {
+extension TasksViewController {
     private func showAlert(task: Task? = nil, completion: (() -> Void)? = nil) {
         let title = task != nil ? "Edit" : "Add"
         let message = "Set name for your task"
@@ -111,7 +119,7 @@ extension TaskListViewController {
             guard let taskName = alert.textFields?.first?.text, !taskName.isEmpty else { return }
             
             guard let task = task, let completion = completion  else {
-//                self?.create(task)
+                self?.create(taskName, alert.textFields?.last?.text ?? "")
                 return
             }
 //            self?.storageManager.update(task: task, with: taskName)

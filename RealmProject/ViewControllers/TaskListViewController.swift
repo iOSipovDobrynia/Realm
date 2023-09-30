@@ -51,8 +51,6 @@ private extension TaskListViewController {
         setupNavigationBar()
         
         tableView.register(TaskListCell.self, forCellReuseIdentifier: cellID)
-        
-        setupLayout()
     }
     
     func createTempData() {
@@ -76,13 +74,6 @@ private extension TaskListViewController {
             action: #selector(addNewTaskList)
         )
         navigationItem.leftBarButtonItem = editButtonItem
-    }
-}
-
-// MARK: - Layout
-private extension TaskListViewController {
-    func setupLayout() {
-        
     }
 }
 
