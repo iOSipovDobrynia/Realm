@@ -1,11 +1,12 @@
 //
 //  TaskList.swift
-//  Realm
+//  RealmProject
 //
 //  Created by Goodwasp on 29.09.2023.
 //
 
 import Foundation
+import RealmSwift
 
 class TaskList {
     var name = ""
