@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class TasksViewController: UITableViewController {
     
     // MARK: - Private properties
     private let cellID = "task"
-    private var currentTasks: [Task] = []
-    private var completedTasks: [Task] = []
+    private var currentTasks: Results<Task>!
+    private var completedTasks: Results<Task>!
     
     // MARK: - Public properties
     var taskList: TaskList!
@@ -33,6 +34,9 @@ final class TasksViewController: UITableViewController {
 private extension TasksViewController {
     func setupView() {
         setupNavigationBar()
+        
+        currentTasks = taskList.tasks.filter("isComplete = false")
+        completedTasks = taskList.tasks.filter("isComplete = true")
         addSubViews()
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)

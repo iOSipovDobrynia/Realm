@@ -32,6 +32,13 @@ final class TaskListViewController: UITableViewController {
         tasksVC.taskList = currentTaskList
         navigationController?.pushViewController(tasksVC, animated: true)
     }
+    
+    private func create(_ taskListName: String) {
+        storageManager.create(taskListName) { taskList in
+            let indexPath = IndexPath(row: taskLists.index(of: taskList) ?? 0, section: 0)
+            tableView.insertRows(at: [indexPath], with: .automatic)
+        }
+    }
 }
 
 // MARK: - View Setting
@@ -39,7 +46,7 @@ private extension TaskListViewController {
     func setupView() {
         createTempData()
         
-        taskLists = StorageManager.shared.realm.objects(TaskList.self)
+        taskLists = storageManager.realm.objects(TaskList.self)
         
         setupNavigationBar()
         
@@ -124,7 +131,7 @@ extension TaskListViewController {
         }
         
         editAction.backgroundColor = .orange
-        doneAction.backgroundColor = .green
+        doneAction.backgroundColor = .systemGreen
         
         return UISwipeActionsConfiguration(actions: [doneAction, editAction, deleteAction])
     }
@@ -141,7 +148,7 @@ extension TaskListViewController {
             guard let taskListName = alert.textFields?.first?.text, !taskListName.isEmpty else { return }
             
             guard let taskList = taskList, let completion = completion  else {
-//                self?.create(taskListName)
+                self?.create(taskListName)
                 return
             }
 //            self?.storageManager.update(taskList: taskList, with: taskListName)

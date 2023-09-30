@@ -17,13 +17,17 @@ final class StorageManager {
     
     // MARK: - Task list
     func save(_ taskLists: [TaskList]) {
-        try! realm.write {
+        write {
             realm.add(taskLists)
         }
     }
     
-    func create() {
-        
+    func create(_ taskList: String, completion: (TaskList) -> Void) {
+        write {
+            let taskList = TaskList(value: ["name": taskList])
+            realm.add(taskList)
+            completion(taskList)
+        }
     }
     
     func update() {
@@ -35,4 +39,14 @@ final class StorageManager {
     }
     
     // MARK: - Task
+    
+    private func write(completion: () -> Void) {
+        do {
+            try realm.write {
+                completion()
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
 }
