@@ -14,6 +14,7 @@
 		E385EEB12AC73D1400E0D0CE /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385EEB02AC73D1400E0D0CE /* CustomCell.swift */; };
 		E385EEB42AC7471400E0D0CE /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385EEB32AC7471400E0D0CE /* TaskList.swift */; };
 		E385EEB72AC74CA100E0D0CE /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E385EEB62AC74CA100E0D0CE /* StorageManager.swift */; };
+		E3A4D0972AC816CD00BB770D /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A4D0962AC816CD00BB770D /* TasksViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		E385EEB02AC73D1400E0D0CE /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		E385EEB32AC7471400E0D0CE /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		E385EEB62AC74CA100E0D0CE /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		E3A4D0962AC816CD00BB770D /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				E33FC1E62AC49DE600287B68 /* TaskListViewController.swift */,
+				E3A4D0962AC816CD00BB770D /* TasksViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				E33FC1E72AC49DE600287B68 /* TaskListViewController.swift in Sources */,
 				E385EEB42AC7471400E0D0CE /* TaskList.swift in Sources */,
 				E33FC1E32AC49DE600287B68 /* AppDelegate.swift in Sources */,
+				E3A4D0972AC816CD00BB770D /* TasksViewController.swift in Sources */,
 				E385EEB72AC74CA100E0D0CE /* StorageManager.swift in Sources */,
 				E385EEB12AC73D1400E0D0CE /* CustomCell.swift in Sources */,
 				E33FC1E52AC49DE600287B68 /* SceneDelegate.swift in Sources */,
