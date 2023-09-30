@@ -103,6 +103,38 @@ extension TaskListViewController {
         editAction.backgroundColor = .orange
         doneAction.backgroundColor = .green
         
-        return UISwipeActionsConfiguration(actions: [])
+        return UISwipeActionsConfiguration(actions: [doneAction, editAction, deleteAction])
+    }
+}
+
+// MARK: - UIAlertController
+extension TaskListViewController {
+    private func showAlert(withTitle title: String, andMessage message: String, taskList: TaskList? = nil, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] action in
+            guard let taskListName = alert.textFields?.first?.text, !taskListName.isEmpty else { return }
+            
+            guard let taskList = taskList, let completion = completion  else {
+//                self?.create(taskListName)
+                return
+            }
+//            self?.storageManager.update(taskList: taskList, with: taskListName)
+            completion()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+        
+        alert.addAction(cancelAction)
+        alert.addAction(saveAction)
+        
+        alert.addTextField { textField in
+            textField.placeholder = "New task"
+            
+            guard let taskList = taskList else { return }
+            textField.text = taskList.name
+        }
+        
+        present(alert, animated: true)
     }
 }
