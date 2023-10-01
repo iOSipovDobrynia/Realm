@@ -14,6 +14,7 @@ final class TaskListViewController: UITableViewController {
     private let cellID = "taskList"
     private var taskLists: Results<TaskList>!
     private let storageManager = StorageManager.shared
+    private var sortingSegmentedControl = UISegmentedControl()
     
     // MARK: - View's life cycle
     override func viewDidLoad() {
@@ -44,6 +45,20 @@ final class TaskListViewController: UITableViewController {
             tableView.insertRows(at: [indexPath], with: .automatic)
         }
     }
+    
+    @objc
+    private func sortTaskLists() {
+        switch sortingSegmentedControl.selectedSegmentIndex {
+        case 0:
+            taskLists = taskLists.sorted(by: \.date)
+            tableView.reloadData()
+        case 1:
+            taskLists = taskLists.sorted(by: \.name)
+            tableView.reloadData()
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - View Setting
@@ -53,7 +68,11 @@ private extension TaskListViewController {
         
         taskLists = storageManager.realm.objects(TaskList.self)
         
+        addSubViews()
+        setupSegmentedControl()
         setupNavigationBar()
+        
+        addActions()
         
         tableView.register(TaskListCell.self, forCellReuseIdentifier: cellID)
     }
@@ -71,7 +90,7 @@ private extension TaskListViewController {
 // MARK: - Settings
 private extension TaskListViewController {
     func setupNavigationBar() {
-        title = "Task list"
+        title = "Task lists"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
@@ -79,6 +98,33 @@ private extension TaskListViewController {
             action: #selector(addNewTaskList)
         )
         navigationItem.leftBarButtonItem = editButtonItem
+        
+        navigationItem.titleView = sortingSegmentedControl
+        navigationItem.titleView?.frame = CGRect(x: 0, y: 100, width: view.frame.width - 32, height: 20)
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        navigationItem.searchController = searchController
+    }
+
+    func addSubViews() {
+        [
+            sortingSegmentedControl
+        ].forEach { subView in
+            view.addSubview(subView)
+        }
+    }
+    
+    func setupSegmentedControl() {
+        let items = ["Date", "A – Z"]
+        sortingSegmentedControl = UISegmentedControl(items: items)
+        sortingSegmentedControl.selectedSegmentIndex = 0
+    }
+    
+    func addActions() {
+        sortingSegmentedControl.addTarget(
+            self,
+            action: #selector(sortTaskLists),
+            for: .valueChanged)
     }
 }
 
