@@ -45,7 +45,6 @@ private extension TasksViewController {
         
         currentTasks = taskList.tasks.filter("isComplete = false")
         completedTasks = taskList.tasks.filter("isComplete = true")
-        addSubViews()
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
     }
@@ -53,10 +52,6 @@ private extension TasksViewController {
 
 // MARK: - Settings
 private extension TasksViewController {
-    func addSubViews() {
-        
-    }
-    
     func setupNavigationBar() {
         title = taskList.name
         let addButton = UIBarButtonItem(
@@ -137,10 +132,12 @@ extension TasksViewController {
 // MARK: - UIAlertController
 extension TasksViewController {
     private func showAlert(task: Task? = nil, completion: (() -> Void)? = nil) {
+        // title, message
         let title = task != nil ? "Edit" : "Add"
         let message = "Set name for your task"
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
+        // actions
         let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] action in
             guard let taskName = alert.textFields?.first?.text, !taskName.isEmpty else { return }
             
@@ -158,6 +155,7 @@ extension TasksViewController {
         alert.addAction(cancelAction)
         alert.addAction(saveAction)
         
+        // text fields
         alert.addTextField { textField in
             textField.placeholder = "Task name"
             

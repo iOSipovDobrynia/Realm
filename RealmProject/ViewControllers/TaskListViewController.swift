@@ -100,10 +100,6 @@ private extension TaskListViewController {
         navigationItem.leftBarButtonItem = editButtonItem
         
         navigationItem.titleView = sortingSegmentedControl
-        navigationItem.titleView?.frame = CGRect(x: 0, y: 100, width: view.frame.width - 32, height: 20)
-        
-        let searchController = UISearchController(searchResultsController: nil)
-        navigationItem.searchController = searchController
     }
 
     func addSubViews() {
@@ -184,10 +180,12 @@ extension TaskListViewController {
 // MARK: - UIAlertController
 extension TaskListViewController {
     private func showAlert(taskList: TaskList? = nil, completion: (() -> Void)? = nil) {
+        // title, message
         let title = taskList != nil ? "Edit" : "Add"
         let message = "Set name for your task list"
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
+        // actions
         let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] action in
             guard let taskListName = alert.textFields?.first?.text, !taskListName.isEmpty else { return }
             
@@ -204,6 +202,7 @@ extension TaskListViewController {
         alert.addAction(cancelAction)
         alert.addAction(saveAction)
         
+        // text fields
         alert.addTextField { textField in
             textField.placeholder = "Task list name"
             

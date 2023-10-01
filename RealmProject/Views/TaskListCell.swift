@@ -28,8 +28,8 @@ final class TaskListCell: UITableViewCell {
     func configure(with taskList: TaskList) {
         taskListNameLabel.text = taskList.name
         
-        let completedTasks = taskList.tasks.where { $0.isComplete }
-        detailLabel.text = "\(taskList.tasks.count - completedTasks.count)"
+        let currentTasks = taskList.tasks.filter("isComplete = false")
+        detailLabel.text = "\(currentTasks.count)"
     }
 }
 
@@ -70,7 +70,6 @@ private extension TaskListCell {
 // MARK: - Layout
 private extension TaskListCell {
     func setupLayout() {
-        
         [
             taskListNameLabel,
             detailLabel
