@@ -29,7 +29,12 @@ final class TaskListCell: UITableViewCell {
         taskListNameLabel.text = taskList.name
         
         let currentTasks = taskList.tasks.filter("isComplete = false")
-        detailLabel.text = "\(currentTasks.count)"
+        if currentTasks.count == 0 {
+            accessoryType = .checkmark
+            detailLabel.text = ""
+        } else {
+            detailLabel.text = "\(currentTasks.count)"
+        }
     }
 }
 

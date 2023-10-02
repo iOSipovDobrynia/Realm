@@ -114,7 +114,18 @@ extension TasksViewController {
         let titleSwitchStatusAction = indexPath.section == 0 ? "Done" : "Undone"
         let switchStatusAction = UIContextualAction(style: .normal, title: titleSwitchStatusAction) { [weak self] _, _, isDone in
             self?.storageManager.switchCompleteStatus(task)
-            tableView.reloadData()
+            
+            let indexPathForCurrentTask = IndexPath(
+                row: self?.currentTasks.index(of: task) ?? 0,
+                section: 0
+            )
+            
+            let indexPathForCompletedTask = IndexPath(
+                row: self?.completedTasks.index(of: task) ?? 0,
+                section: 1
+            )
+            let destinationIndexRow = indexPath.section == 0 ? indexPathForCompletedTask : indexPathForCurrentTask
+            tableView.moveRow(at: indexPath, to: destinationIndexRow)
             isDone(true)
         }
         

@@ -27,7 +27,7 @@ final class DataManager {
         let pears = Task(value: ["name": "Pears", "isComplete": true])
         
         shoppingList.tasks.append(milk)
-        shoppingList.tasks.insert(contentsOf: [milk, butter, pears], at: 0)
+        shoppingList.tasks.insert(contentsOf: [butter, pears], at: 0)
         
         // tv series list
         let tvList = TaskList()

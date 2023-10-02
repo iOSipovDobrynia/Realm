@@ -51,13 +51,12 @@ final class TaskListViewController: UITableViewController {
         switch sortingSegmentedControl.selectedSegmentIndex {
         case 0:
             taskLists = taskLists.sorted(by: \.date)
-            tableView.reloadData()
         case 1:
             taskLists = taskLists.sorted(by: \.name)
-            tableView.reloadData()
         default:
             break
         }
+        tableView.reloadData()
     }
 }
 
